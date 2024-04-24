@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Column filterProperty="Leader" sortProperty="Leader">
+        <Text text="{i18n>Leader}"/>
+        <customData>
+            <core:CustomData key="p13nData" value="\{&quot;filterProperty&quot;: &quot;Leader&quot;,&quot;sortProperty&quot;: &quot;Leader&quot;,&quot;columnKey&quot;: &quot;Leader&quot;, &quot;leadingProperty&quot;: &quot;Leader&quot;, &quot;columnIndex&quot;: &quot;2&quot;}"/>
+        </customData>
+    </Column>
+</core:FragmentDefinition>

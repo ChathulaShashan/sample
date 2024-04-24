@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" 
+    xmlns="sap.m"
+	xmlns:smartField="sap.ui.comp.smartfield">
+	<RadioButton enabled="{ui>/editable}" groupName="GroupLeader" selected="{Leader}" />
+</core:FragmentDefinition>

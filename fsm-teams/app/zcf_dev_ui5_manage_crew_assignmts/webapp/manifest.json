@@ -1,0 +1,195 @@
+{
+  "_version": "1.17.0",
+  "sap.app": {
+    "id": "com.heco.zmwfsm.crewmgmt",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.10.6",
+      "toolsId": "60edfcfa-5b4c-4319-ad60-8f7d858a69f5"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v2/admin/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.71.47",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.f": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.suite.ui.generic.template": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.heco.zmwfsm.crewmgmt.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "useBatch": true,
+          "defaultUpdateMethod": "PUT",
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {},
+      "routes": [],
+      "targets": {}
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.viewExtensions": {
+          "sap.suite.ui.generic.template.ListReport.view.ListReport": {},
+          "sap.suite.ui.generic.template.ObjectPage.view.Details": {
+              "ResponsiveTableColumnsExtension|Teammembers|teammember": {
+                  "className": "sap.ui.core.Fragment",
+                  "fragmentName": "com.heco.zmwfsm.crewmgmt.ext.fragments.ResponsiveTableColumns",
+                  "type": "XML"
+              },
+              "ResponsiveTableCellsExtension|Teammembers|teammember": {
+                  "className": "sap.ui.core.Fragment",
+                  "fragmentName": "com.heco.zmwfsm.crewmgmt.ext.fragments.ResponsiveTableCells",
+                  "type": "XML"
+              }
+          }
+      },
+        "sap.ui.controllerExtensions": {
+          "sap.suite.ui.generic.template.ObjectPage.view.Details": {
+            "controllerName": "com.heco.zmwfsm.crewmgmt.ext.controller.ObjectPageExt",
+            "sap.ui.generic.app": {
+              "Teams": {
+                "EntitySet": "Teams",
+                "Sections": {
+                  "teammember": {
+                    "id": "teammember",
+                    "Actions": {
+                      "ADD": {
+                        "text": "{{Add}}",
+                        "visible": "{= ${ui>/editable} === true}",
+                        "press": "onPressCreateTeamMember",
+                        "requiresSelection": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.ui.generic.app": {
+    "settings": {
+      "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsEndExpanded"
+      }
+    },
+    "pages": [
+      {
+        "entitySet": "Teams",
+        "component": {
+          "name": "sap.suite.ui.generic.template.ListReport",
+          "list": true
+        },
+        "pages": [
+          {
+            "entitySet": "Teams",
+            "component": {
+              "name": "sap.suite.ui.generic.template.ObjectPage",
+              "settings": {
+                "multiSelect": true,
+                "disableDefaultInlineCreateSort": true,
+                "createMode": "inline",
+                "sections": {
+                  "teammember::com.sap.vocabularies.UI.v1.LineItem": {
+                    "navigationProperty": "ToTeamMembers",
+                    "entitySet": "Teammembers",
+                    "createMode": "inline"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}
